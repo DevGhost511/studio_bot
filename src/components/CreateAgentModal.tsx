@@ -10,7 +10,10 @@ interface CreateAgentModalProps {
 export function CreateAgentModal({ onClose, onCreate }: CreateAgentModalProps) {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
-      
+      name: '',
+      voice: 'natural',
+      personality: 'professional',
+      language: 'en-US'
     });
   
     const handleSubmit = (e: React.FormEvent) => {
