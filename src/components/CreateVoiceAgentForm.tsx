@@ -293,7 +293,7 @@ export function CreateVoiceAgentForm({ onSubmit }: CreateVoiceAgentFormProps) {
             </div>
           </form>
   
-          {/* {step < 3 && (
+          {step < 3 && (
             <button
               className={`mt-4 w-full flex items-center justify-center px-4 py-3 rounded-lg border border-purple-600/30 text-purple-400 hover:bg-purple-600/5 transition-all ${
                 isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
@@ -303,7 +303,7 @@ export function CreateVoiceAgentForm({ onSubmit }: CreateVoiceAgentFormProps) {
               <Wand2 className="w-4 h-4 mr-2" />
               Quick Setup with AI
             </button>
-          )} */}
+          )}
         </div>
       </motion.div>
     );
