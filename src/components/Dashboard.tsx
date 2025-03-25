@@ -21,3 +21,50 @@ interface DashboardPropsType {
   userProfile: UserProfile;
 }
 
+export function Dashboard({ data, userProfile }: DashboardPropsType) {
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [agents, setAgents] = useState<VoiceAgent[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [analysisData, setAnalysisData] = useState(data);
+    const [isExpired, setIsExpired] = useState<Boolean>(false);
+    const loadAgents = async () => {
+      try {
+        setLoading(true);
+        const data = await loadVoiceAgents();
+        setAgents(data);
+      } catch (err) {
+        console.error('Error loading voice agents:', err);
+        setError('Failed to load voice agents');
+      } finally {
+        setLoading(false);
+      }
+    };
+    useEffect(() => {
+      if (userProfile) {
+        if (
+          getMinsRemaining(userProfile.totalUsageMinutes) <= 0 ||
+          getDaysRemaining(userProfile?.planEnd) <= 0
+        ) {
+          setIsExpired(true);
+        }
+      }
+    }, [userProfile]);
+    useEffect(() => {
+      loadAgents();
+    }, []);
+    useEffect(() => {
+      setAnalysisData(data);
+    }, [data]);
+    const handleDeleteAgent = async (id: string) => {
+      try {
+        await deleteVoiceAgent(id);
+        setAgents((prev) => prev.filter((agent) => agent.id !== id));
+      } catch (err) {
+        console.error('Error deleting voice agent:', err);
+        setError('Failed to delete voice agent');
+      }
+    };
+  
+    
+  }
