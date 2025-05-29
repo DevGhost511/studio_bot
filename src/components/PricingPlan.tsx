@@ -182,4 +182,4 @@ export function PricingPlans() {
         </div>
       </div>
     );
-  }
+  } 
